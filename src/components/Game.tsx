@@ -188,6 +188,7 @@ const Game = ({ category, difficulty, onCancel }: Game) => {
           <Button
             aria-label="cancel-quiz"
             mt="md"
+            size="md"
             color="gray"
             onClick={() => onCancel()}
           >
