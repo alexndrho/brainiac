@@ -16,7 +16,7 @@ import getQuestions from '../api/getQuestions';
 
 const useStyles = createStyles((theme) => ({
   container: {
-    height: '100%',
+    minHeight: '100%',
 
     display: 'flex',
     flexDirection: 'column',
@@ -125,7 +125,7 @@ const Game = ({ category, difficulty, onCancel }: Game) => {
 
   if (questions && questionNumber >= questions.length) {
     return (
-      <Container className={classes.resultContainer}>
+      <Container py="lg" className={classes.resultContainer}>
         <Title order={1} size="h1" mb="xl">
           {CategoryLabel[category].label}
         </Title>
@@ -149,7 +149,7 @@ const Game = ({ category, difficulty, onCancel }: Game) => {
   }
 
   return (
-    <Container className={classes.container}>
+    <Container py="lg" className={classes.container}>
       <Title order={1} size="h1" mb="xl">
         {CategoryLabel[category].label}
       </Title>

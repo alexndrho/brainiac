@@ -12,7 +12,7 @@ import { Category, CategoryLabel } from '../pages/Play';
 
 const useStyles = createStyles((theme) => ({
   container: {
-    height: '100%',
+    minHeight: '100%',
 
     display: 'flex',
     flexDirection: 'column',
@@ -68,7 +68,7 @@ const CategoryPanel = ({
   };
 
   return (
-    <Container className={classes.container}>
+    <Container py="lg" className={classes.container}>
       <Title size="h2" mb="xl">
         Categories ✨
       </Title>

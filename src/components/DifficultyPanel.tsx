@@ -12,7 +12,7 @@ import { Category, CategoryLabel, Difficulty } from '../pages/Play';
 
 const useStyles = createStyles(() => ({
   container: {
-    height: '100%',
+    minHeight: '100%',
 
     display: 'flex',
     flexDirection: 'column',
@@ -46,7 +46,7 @@ const DifficultyPanel = ({
   };
 
   return (
-    <Container size="xs" className={classes.container}>
+    <Container py="lg" size="xs" className={classes.container}>
       <Title order={1} size="h1" mt="lg" mb="2.5rem">
         {CategoryLabel[category].label}
       </Title>
