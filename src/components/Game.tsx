@@ -35,7 +35,7 @@ const useStyles = createStyles((theme) => ({
 
   btn: {
     borderRadius: theme.radius.md,
-    padding: theme.spacing.lg,
+    padding: theme.spacing.md,
     color: theme.colors.gray[0],
     fontSize: '1.5rem',
     fontWeight: 'bold',
