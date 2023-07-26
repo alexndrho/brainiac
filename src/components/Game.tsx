@@ -47,22 +47,6 @@ const useStyles = createStyles((theme) => ({
       transform: 'translateY(2px)',
     },
   },
-
-  correctBtn: {
-    backgroundColor: theme.colors.green[7],
-
-    '&:hover': {
-      backgroundColor: theme.colors.green[7],
-    },
-  },
-
-  incorrectBtn: {
-    backgroundColor: theme.colors.red[7],
-
-    '&:hover': {
-      backgroundColor: theme.colors.red[7],
-    },
-  },
 }));
 
 type Answer = {
