@@ -57,21 +57,6 @@ const useStyles = createStyles((theme) => ({
     justifyContent: 'center',
     alignItems: 'center',
   },
-
-  btn: {
-    borderRadius: theme.radius.md,
-    padding: theme.spacing.md,
-    color: theme.colors.gray[0],
-    fontSize: '1.5rem',
-    fontWeight: 'bold',
-    textAlign: 'center',
-    cursor: 'pointer',
-    userSelect: 'none',
-
-    '&:active': {
-      transform: 'translateY(2px)',
-    },
-  },
 }));
 
 type Answer = {
@@ -279,11 +264,10 @@ const Game = ({ category, difficulty, onCancel }: Game) => {
 
           <Flex w="100%" direction="column" gap="xs">
             {questions[questionNumber].answers.map((answer, index) => (
-              <Box
+              <Button
                 key={crypto.randomUUID()}
                 role="button"
-                className={classes.btn}
-                bg={
+                color={
                   !isUserAnswered
                     ? 'blue'
                     : answer.isCorrect
@@ -295,9 +279,24 @@ const Game = ({ category, difficulty, onCancel }: Game) => {
                     : 'red'
                 }
                 onClick={() => handleAnswerClick(index)}
+                styles={(theme) => ({
+                  root: {
+                    borderRadius: theme.radius.md,
+                    height: 'auto',
+                    padding: theme.spacing.lg,
+                  },
+
+                  label: {
+                    fontSize: '1.5rem',
+                    fontWeight: 'bold',
+                    overflow: 'visible',
+                    whiteSpace: 'normal',
+                    textAlign: 'center',
+                  },
+                })}
               >
                 <Text>{answer.text}</Text>
-              </Box>
+              </Button>
             ))}
           </Flex>
 

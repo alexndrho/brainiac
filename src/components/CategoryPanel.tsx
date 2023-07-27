@@ -1,6 +1,5 @@
 import { useNavigate } from 'react-router-dom';
 import {
-  Box,
   Button,
   Container,
   SimpleGrid,
@@ -10,7 +9,7 @@ import {
 import { IconArrowBackUp } from '@tabler/icons-react';
 import { Category, CategoryLabel } from '../pages/Play';
 
-const useStyles = createStyles((theme) => ({
+const useStyles = createStyles(() => ({
   container: {
     minHeight: '100%',
 
@@ -18,28 +17,6 @@ const useStyles = createStyles((theme) => ({
     flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'flex-start',
-  },
-
-  category: {
-    borderRadius: theme.radius.md,
-    padding: theme.spacing.lg,
-
-    fontSize: theme.fontSizes.xl,
-    fontWeight: 600,
-    color: theme.colors.gray[0],
-    textAlign: 'center',
-
-    cursor: 'pointer',
-    userSelect: 'none',
-
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'center',
-    alignItems: 'center',
-
-    '&:active': {
-      transform: 'translateY(0.125rem)',
-    },
   },
 }));
 
@@ -76,15 +53,27 @@ const CategoryPanel = ({
       <SimpleGrid cols={2} spacing="sm" w="100%">
         {(Object.keys(CategoryLabel) as Array<keyof typeof CategoryLabel>).map(
           (key) => (
-            <Box
+            <Button
               key={crypto.randomUUID()}
-              className={classes.category}
-              bg={CategoryLabel[key].color}
-              role="button"
+              size="xl"
+              color={CategoryLabel[key].color}
               onClick={() => handleNextStep(key)}
+              styles={(theme) => ({
+                root: {
+                  borderRadius: theme.radius.md,
+                  height: 'auto',
+                  padding: theme.spacing.lg,
+                },
+
+                label: {
+                  overflow: 'visible',
+                  whiteSpace: 'normal',
+                  textAlign: 'center',
+                },
+              })}
             >
               {CategoryLabel[key].label}
-            </Box>
+            </Button>
           )
         )}
       </SimpleGrid>
