@@ -18,6 +18,8 @@ enum Category {
   MUSIC = 'music',
   HISTORY = 'history',
   GEOGRAPHY = 'geography',
+  ART_AND_LITERATURE = 'art_and_literature',
+  FOOD_AND_DRINK = 'food_and_drink',
 }
 
 const CategoryLabel = {
@@ -52,6 +54,14 @@ const CategoryLabel = {
   [Category.GEOGRAPHY]: {
     label: 'Geography 🌎',
     color: 'orange',
+  },
+  [Category.ART_AND_LITERATURE]: {
+    label: 'Art & Literature 📚',
+    color: 'indigo',
+  },
+  [Category.FOOD_AND_DRINK]: {
+    label: 'Food & Drink 🍔',
+    color: 'lime',
   },
 } as const;
 
