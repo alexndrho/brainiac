@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import {
   Box,
   Button,
@@ -102,35 +102,35 @@ const Game = ({ category, difficulty, onCancel }: Game) => {
   const [isUserAnswered, setIsUserAnswered] = useState<boolean>(false);
   const [score, setScore] = useState<number>(0);
 
-  useEffect(() => {
-    fetchQuestions(category, difficulty)
-      .then((data) => {
-        const questions: Question[] = data.map((question) => {
-          let answers = question.incorrectAnswers.map((answer) => ({
-            text: answer,
-            isClicked: false,
-            isCorrect: false,
-          }));
+  const getQuestions = useCallback(async () => {
+    const data = await fetchQuestions(category, difficulty);
 
-          answers.push({
-            text: question.correctAnswer,
-            isClicked: false,
-            isCorrect: true,
-          });
+    const questions: Question[] = data.map((question) => {
+      let answers = question.incorrectAnswers.map((answer) => ({
+        text: answer,
+        isClicked: false,
+        isCorrect: false,
+      }));
 
-          answers = answers.sort(() => Math.random() - 0.5);
-          return {
-            question: question.question.text,
-            answers: answers,
-          };
-        });
-
-        setQuestions(questions);
-      })
-      .catch((error) => {
-        console.log(error);
+      answers.push({
+        text: question.correctAnswer,
+        isClicked: false,
+        isCorrect: true,
       });
+
+      answers = answers.sort(() => Math.random() - 0.5);
+      return {
+        question: question.question.text,
+        answers: answers,
+      };
+    });
+
+    setQuestions(questions);
   }, [category, difficulty]);
+
+  useEffect(() => {
+    getQuestions();
+  }, [getQuestions]);
 
   // initial count down
   useEffect(() => {
