@@ -138,7 +138,7 @@ const Game = ({ category, difficulty, onCancel }: Game) => {
           out of {questions.length}
         </Text>
         <Button
-          aria-label="cancel-quiz"
+          aria-label="cancel quiz"
           size="md"
           color="gray"
           onClick={() => onCancel()}
@@ -197,7 +197,7 @@ const Game = ({ category, difficulty, onCancel }: Game) => {
           />
 
           <Button
-            aria-label="cancel-quiz"
+            aria-label="cancel quiz"
             size="md"
             color="gray"
             onClick={() => onCancel()}
