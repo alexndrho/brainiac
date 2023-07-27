@@ -4,16 +4,21 @@ import {
   Button,
   Container,
   Flex,
+  Group,
   Loader,
+  Overlay,
   Progress,
   Text,
   Title,
   createStyles,
 } from '@mantine/core';
-import { IconArrowBackUp } from '@tabler/icons-react';
+import { IconAlarm, IconArrowBackUp } from '@tabler/icons-react';
 
 import { Category, CategoryLabel, Difficulty } from '../pages/Play';
 import getQuestions from '../api/getQuestions';
+
+const INITIAL_COUNTDOWN = 4;
+const TIMER = 15;
 
 const useStyles = createStyles((theme) => ({
   container: {
@@ -23,6 +28,24 @@ const useStyles = createStyles((theme) => ({
     flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'flex-start',
+  },
+
+  timer: {
+    padding: theme.spacing.xs,
+    borderRadius: theme.radius.md,
+    backgroundColor: theme.colors.dark[9],
+
+    fontSize: '1.25rem',
+    fontWeight: 'bold',
+
+    display: 'flex',
+    alignItems: 'center',
+
+    gap: theme.spacing.xs,
+  },
+
+  timerDanger: {
+    color: theme.colors.red[6],
   },
 
   resultContainer: {
@@ -70,6 +93,10 @@ interface Game {
 const Game = ({ category, difficulty, onCancel }: Game) => {
   const { classes } = useStyles();
 
+  const [initialCountdown, setInitialCountdown] =
+    useState<number>(INITIAL_COUNTDOWN);
+  const [timer, setTimer] = useState<number>(TIMER);
+
   const [questions, setQuestions] = useState<Question[] | null>(null);
   const [questionNumber, setQuestionNumber] = useState<number>(0);
   const [isUserAnswered, setIsUserAnswered] = useState<boolean>(false);
@@ -105,6 +132,51 @@ const Game = ({ category, difficulty, onCancel }: Game) => {
       });
   }, [category, difficulty]);
 
+  // initial count down
+  useEffect(() => {
+    if (!questions) return;
+    let timer: number | undefined;
+
+    if (initialCountdown > 0) {
+      timer = setTimeout(() => {
+        setInitialCountdown(initialCountdown - 1);
+      }, 1000);
+    }
+
+    return () => {
+      if (timer) {
+        clearTimeout(timer);
+      }
+    };
+  }, [questions, initialCountdown]);
+
+  // timer for each question after initial countdown
+  useEffect(() => {
+    if (
+      !questions ||
+      initialCountdown !== 0 ||
+      isUserAnswered ||
+      questionNumber === questions.length
+    )
+      return;
+    let time = 0;
+
+    if (timer > 0) {
+      time = setTimeout(() => {
+        setTimer(timer - 1);
+      }, 1000);
+    } else {
+      setQuestionNumber(questionNumber + 1);
+      setTimer(TIMER);
+    }
+
+    return () => {
+      if (time) {
+        clearTimeout(time);
+      }
+    };
+  }, [timer, initialCountdown, questions, questionNumber, isUserAnswered]);
+
   const handleAnswerClick = (index: number) => {
     if (!questions || isUserAnswered) return;
 
@@ -121,6 +193,7 @@ const Game = ({ category, difficulty, onCancel }: Game) => {
     setTimeout(() => {
       setQuestionNumber(questionNumber + 1);
       setIsUserAnswered(false);
+      setTimer(15);
     }, 1000);
   };
 
@@ -151,14 +224,33 @@ const Game = ({ category, difficulty, onCancel }: Game) => {
 
   return (
     <Container py="lg" className={classes.container}>
-      <Title order={1} size="h1" mb="xl">
-        {CategoryLabel[category].label}
-      </Title>
+      <Group mb="xl" w="100%" position="apart">
+        <Title order={1} size="h1">
+          {CategoryLabel[category].label}
+        </Title>
+
+        <Box
+          className={`${classes.timer} ${
+            timer <= 5 ? classes.timerDanger : ''
+          }`}
+        >
+          <IconAlarm />
+          {timer.toString().padStart(2, '0')}
+        </Box>
+      </Group>
 
       {!questions ? (
-        <Loader size="xl" mt="xl" mx="auto" />
+        <Loader size="xl" my="10rem" mx="auto" />
       ) : (
         <>
+          {initialCountdown !== 0 && (
+            <Overlay blur="15" center>
+              <Text fz="6.5rem" fw="bolder">
+                {initialCountdown - 1 !== 0 ? initialCountdown - 1 : 'GO!'}
+              </Text>
+            </Overlay>
+          )}
+
           <Text mb="lg" fz="1.75rem" fw="bold" lh="1.25em">
             {questions[questionNumber].question}
           </Text>
