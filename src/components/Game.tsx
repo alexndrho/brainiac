@@ -5,6 +5,7 @@ import {
   Container,
   Flex,
   Loader,
+  Progress,
   Text,
   Title,
   createStyles,
@@ -185,9 +186,18 @@ const Game = ({ category, difficulty, onCancel }: Game) => {
               </Box>
             ))}
           </Flex>
+
+          <Progress
+            my="md"
+            w="100%"
+            size="sm"
+            radius="md"
+            aria-label="quiz progress"
+            value={Math.round((questionNumber / questions.length) * 100)}
+          />
+
           <Button
             aria-label="cancel-quiz"
-            mt="md"
             size="md"
             color="gray"
             onClick={() => onCancel()}
