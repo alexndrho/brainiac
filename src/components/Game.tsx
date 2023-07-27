@@ -16,6 +16,7 @@ import { IconAlarm, IconArrowBackUp } from '@tabler/icons-react';
 
 import { Category, CategoryLabel, Difficulty } from '../pages/Play';
 import fetchQuestions from '../api/fetchQuestions';
+import { IconRepeat } from '@tabler/icons-react';
 
 const INITIAL_COUNTDOWN = 4;
 const TIMER = 15;
@@ -197,6 +198,16 @@ const Game = ({ category, difficulty, onCancel }: Game) => {
     }, 1000);
   };
 
+  const handlePlayAgain = () => {
+    setQuestions(null);
+    setInitialCountdown(INITIAL_COUNTDOWN);
+    setTimer(TIMER);
+    setQuestionNumber(0);
+    setIsUserAnswered(false);
+    setScore(0);
+    getQuestions();
+  };
+
   if (questions && questionNumber >= questions.length) {
     return (
       <Container py="lg" className={classes.resultContainer}>
@@ -210,14 +221,25 @@ const Game = ({ category, difficulty, onCancel }: Game) => {
           </Text>{' '}
           out of {questions.length}
         </Text>
-        <Button
-          aria-label="cancel quiz"
-          size="md"
-          color="gray"
-          onClick={() => onCancel()}
-        >
-          <IconArrowBackUp />
-        </Button>
+
+        <Group>
+          <Button
+            aria-label="play again"
+            size="md"
+            onClick={() => handlePlayAgain()}
+          >
+            <IconRepeat />
+          </Button>
+
+          <Button
+            aria-label="cancel quiz"
+            size="md"
+            color="gray"
+            onClick={() => onCancel()}
+          >
+            <IconArrowBackUp />
+          </Button>
+        </Group>
       </Container>
     );
   }
