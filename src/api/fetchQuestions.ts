@@ -1,7 +1,7 @@
 import { Category, Difficulty } from '../pages/Play';
 import IQuestion from '../types/IQuestion';
 
-const getQuestions = async (category: Category, difficulty: Difficulty) => {
+const fetchQuestions = async (category: Category, difficulty: Difficulty) => {
   const queryCategory =
     category === Category.RANDOM ? '' : `&categories=${category}&`;
 
@@ -18,4 +18,4 @@ const getQuestions = async (category: Category, difficulty: Difficulty) => {
   return data;
 };
 
-export default getQuestions;
+export default fetchQuestions;

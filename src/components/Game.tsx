@@ -15,7 +15,7 @@ import {
 import { IconAlarm, IconArrowBackUp } from '@tabler/icons-react';
 
 import { Category, CategoryLabel, Difficulty } from '../pages/Play';
-import getQuestions from '../api/getQuestions';
+import fetchQuestions from '../api/fetchQuestions';
 
 const INITIAL_COUNTDOWN = 4;
 const TIMER = 15;
@@ -103,7 +103,7 @@ const Game = ({ category, difficulty, onCancel }: Game) => {
   const [score, setScore] = useState<number>(0);
 
   useEffect(() => {
-    getQuestions(category, difficulty)
+    fetchQuestions(category, difficulty)
       .then((data) => {
         const questions: Question[] = data.map((question) => {
           let answers = question.incorrectAnswers.map((answer) => ({
