@@ -32,6 +32,7 @@ const useStyles = createStyles((theme) => ({
   },
 
   timer: {
+    width: '5rem',
     padding: theme.spacing.xs,
     borderRadius: theme.radius.md,
     backgroundColor: theme.colors.dark[9],
@@ -40,9 +41,8 @@ const useStyles = createStyles((theme) => ({
     fontWeight: 'bold',
 
     display: 'flex',
+    justifyContent: 'space-between',
     alignItems: 'center',
-
-    gap: theme.spacing.xs,
   },
 
   timerDanger: {
