@@ -62,7 +62,7 @@ const CategoryPanel = ({
                 root: {
                   borderRadius: theme.radius.md,
                   height: 'auto',
-                  padding: theme.spacing.lg,
+                  padding: theme.spacing.xl,
                 },
 
                 label: {
