@@ -50,25 +50,36 @@ const CategoryPanel = ({
         Categories ✨
       </Title>
 
-      <SimpleGrid cols={2} spacing="sm" w="100%">
+      <SimpleGrid
+        cols={2}
+        spacing="sm"
+        w="100%"
+        style={{ gridAutoRows: 'minmax(5rem, auto)' }}
+      >
         {(Object.keys(CategoryLabel) as Array<keyof typeof CategoryLabel>).map(
           (key) => (
             <Button
               key={crypto.randomUUID()}
-              size="xl"
               color={CategoryLabel[key].color}
               onClick={() => handleNextStep(key)}
               styles={(theme) => ({
                 root: {
                   borderRadius: theme.radius.md,
                   height: 'auto',
-                  padding: theme.spacing.xl,
+                  padding: theme.spacing.md,
                 },
 
                 label: {
                   overflow: 'visible',
                   whiteSpace: 'normal',
                   textAlign: 'center',
+                  lineHeight: '1.25em',
+                  fontWeight: 'bold',
+                  fontSize: '1.25rem',
+
+                  [theme.fn.largerThan('sm')]: {
+                    fontSize: '1.5rem',
+                  },
                 },
               })}
             >
