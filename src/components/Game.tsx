@@ -89,29 +89,34 @@ const Game = ({ category, difficulty, onCancel }: Game) => {
   const [score, setScore] = useState<number>(0);
 
   const getQuestions = useCallback(async () => {
-    const data = await fetchQuestions(category, difficulty);
+    try {
+      const data = await fetchQuestions(category, difficulty);
 
-    const questions: Question[] = data.map((question) => {
-      let answers = question.incorrectAnswers.map((answer) => ({
-        text: answer,
-        isClicked: false,
-        isCorrect: false,
-      }));
+      const questions: Question[] = data.map((question) => {
+        let answers = question.incorrectAnswers.map((answer) => ({
+          text: answer,
+          isClicked: false,
+          isCorrect: false,
+        }));
 
-      answers.push({
-        text: question.correctAnswer,
-        isClicked: false,
-        isCorrect: true,
+        answers.push({
+          text: question.correctAnswer,
+          isClicked: false,
+          isCorrect: true,
+        });
+
+        answers = answers.sort(() => Math.random() - 0.5);
+        return {
+          question: question.question.text,
+          answers: answers,
+        };
       });
 
-      answers = answers.sort(() => Math.random() - 0.5);
-      return {
-        question: question.question.text,
-        answers: answers,
-      };
-    });
-
-    setQuestions(questions);
+      setQuestions(questions);
+    } catch (error) {
+      console.error(error);
+      setQuestions([]);
+    }
   }, [category, difficulty]);
 
   useEffect(() => {
