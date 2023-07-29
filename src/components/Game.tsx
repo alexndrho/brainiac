@@ -251,7 +251,7 @@ const Game = ({ category, difficulty, onCancel }: Game) => {
       ) : (
         <>
           {initialCountdown !== 0 && (
-            <Overlay blur="15" center>
+            <Overlay blur="15" center style={{ userSelect: 'none' }}>
               <Text fz="6.5rem" fw="bolder">
                 {initialCountdown - 1 !== 0 ? initialCountdown - 1 : 'GO!'}
               </Text>
