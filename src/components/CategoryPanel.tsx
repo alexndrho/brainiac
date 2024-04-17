@@ -57,9 +57,9 @@ const CategoryPanel = ({
         style={{ gridAutoRows: 'minmax(5rem, auto)' }}
       >
         {(Object.keys(CategoryLabel) as Array<keyof typeof CategoryLabel>).map(
-          (key) => (
+          (key, index) => (
             <Button
-              key={crypto.randomUUID()}
+              key={index}
               color={CategoryLabel[key].color}
               onClick={() => handleNextStep(key)}
               styles={(theme) => ({

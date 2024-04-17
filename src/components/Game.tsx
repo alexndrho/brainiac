@@ -270,7 +270,7 @@ const Game = ({ category, difficulty, onCancel }: Game) => {
           <Flex w="100%" direction="column" gap="xs">
             {questions[questionNumber].answers.map((answer, index) => (
               <Button
-                key={crypto.randomUUID()}
+                key={index}
                 role="button"
                 color={
                   !isUserAnswered
