@@ -10,7 +10,7 @@ interface IQuestion {
   };
   correctAnswer: string;
   incorrectAnswers: string[];
-  type: 'text_choice' | 'image_choice';
+  type: "text_choice" | "image_choice";
 }
 
 export default IQuestion;
