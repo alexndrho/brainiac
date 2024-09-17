@@ -35,11 +35,12 @@ type Question = {
 
 interface Game {
   category: CategoryEnum;
+  numberOfQuestions: number;
   difficulty: DifficultyEnum;
   onCancel: () => void;
 }
 
-const Game = ({ category, difficulty, onCancel }: Game) => {
+const Game = ({ category, numberOfQuestions, difficulty, onCancel }: Game) => {
   const [initialCountdown, setInitialCountdown] =
     useState<number>(INITIAL_COUNTDOWN);
   const [timer, setTimer] = useState<number>(TIMER);
@@ -51,7 +52,11 @@ const Game = ({ category, difficulty, onCancel }: Game) => {
 
   const getQuestions = useCallback(async () => {
     try {
-      const data = await fetchQuestions(category, difficulty);
+      const data = await fetchQuestions(
+        category,
+        numberOfQuestions,
+        difficulty
+      );
 
       const questions: Question[] = data.map((question) => {
         let answers = question.incorrectAnswers.map((answer) => ({
@@ -78,7 +83,7 @@ const Game = ({ category, difficulty, onCancel }: Game) => {
       console.error(error);
       setQuestions([]);
     }
-  }, [category, difficulty]);
+  }, [category, numberOfQuestions, difficulty]);
 
   useEffect(() => {
     getQuestions();

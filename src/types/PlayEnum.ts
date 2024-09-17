@@ -17,6 +17,8 @@ enum CategoryEnum {
   FOOD_AND_DRINK = "food_and_drink",
 }
 
+type NumberOfQuestionType = 10 | 20 | 30;
+
 enum DifficultyEnum {
   EASY = "easy",
   MEDIUM = "medium",
@@ -67,3 +69,4 @@ const CategoryLabel = {
 } as const;
 
 export { StepEnum, CategoryEnum, DifficultyEnum, CategoryLabel };
+export type { NumberOfQuestionType };

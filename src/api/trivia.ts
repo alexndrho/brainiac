@@ -3,12 +3,13 @@ import IQuestion from "@/types/IQuestion";
 
 const fetchQuestions = async (
   category: CategoryEnum,
+  numberOfQuestions: number,
   difficulty: DifficultyEnum
 ) => {
   const queryCategory =
     category === CategoryEnum.RANDOM ? "" : `&categories=${category}&`;
 
-  const url = `https://the-trivia-api.com/v2/questions?limit=10&${queryCategory}difficulties=${difficulty}`;
+  const url = `https://the-trivia-api.com/v2/questions?limit=${numberOfQuestions}&${queryCategory}difficulties=${difficulty}`;
 
   const response = await fetch(url);
 

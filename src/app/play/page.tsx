@@ -4,11 +4,18 @@ import { useState } from "react";
 import CategoryPanel from "./steps/CategoryPanel";
 import DifficultyPanel from "./steps/DifficultyPanel";
 import Game from "./steps/Game";
-import { CategoryEnum, DifficultyEnum, StepEnum } from "@/types/PlayEnum";
+import {
+  CategoryEnum,
+  DifficultyEnum,
+  NumberOfQuestionType,
+  StepEnum,
+} from "@/types/PlayEnum";
 
 export default function Play() {
   const [step, setStep] = useState<StepEnum>(StepEnum.CATEGORY);
   const [category, setCategory] = useState<CategoryEnum>(CategoryEnum.RANDOM);
+  const [numberOfQuestions, setNumberOfQuestions] =
+    useState<NumberOfQuestionType>(10);
   const [difficulty, setDifficulty] = useState<DifficultyEnum>(
     DifficultyEnum.MEDIUM
   );
@@ -27,7 +34,9 @@ export default function Play() {
       return (
         <DifficultyPanel
           category={category}
+          numberOfQuestions={numberOfQuestions}
           difficulty={difficulty}
+          setNumberOfQuestions={setNumberOfQuestions}
           setDifficulty={setDifficulty}
           onStart={() => setStep(StepEnum.GAME)}
           onCancel={() => setStep(StepEnum.CATEGORY)}
@@ -37,6 +46,7 @@ export default function Play() {
       return (
         <Game
           category={category}
+          numberOfQuestions={numberOfQuestions}
           difficulty={difficulty}
           onCancel={() => setStep(StepEnum.CATEGORY)}
         />
