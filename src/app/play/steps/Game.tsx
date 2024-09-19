@@ -118,7 +118,7 @@ const Game = ({ category, numberOfQuestions, difficulty, onCancel }: Game) => {
       return;
     let time = null;
 
-    if (timer < TIMER) {
+    if (timer <= TIMER) {
       time = setTimeout(() => {
         setTimer(timer + 1);
       }, 1000);
