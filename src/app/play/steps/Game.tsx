@@ -43,7 +43,7 @@ interface Game {
 const Game = ({ category, numberOfQuestions, difficulty, onCancel }: Game) => {
   const [initialCountdown, setInitialCountdown] =
     useState<number>(INITIAL_COUNTDOWN);
-  const [timer, setTimer] = useState<number>(TIMER);
+  const [timer, setTimer] = useState<number>(0);
 
   const [questions, setQuestions] = useState<Question[] | null>(null);
   const [questionNumber, setQuestionNumber] = useState<number>(0);
@@ -118,13 +118,13 @@ const Game = ({ category, numberOfQuestions, difficulty, onCancel }: Game) => {
       return;
     let time = null;
 
-    if (timer > 0) {
+    if (timer < TIMER) {
       time = setTimeout(() => {
-        setTimer(timer - 1);
+        setTimer(timer + 1);
       }, 1000);
     } else {
       setQuestionNumber(questionNumber + 1);
-      setTimer(TIMER);
+      setTimer(0);
     }
 
     return () => {
@@ -157,7 +157,7 @@ const Game = ({ category, numberOfQuestions, difficulty, onCancel }: Game) => {
   const handlePlayAgain = () => {
     setQuestions(null);
     setInitialCountdown(INITIAL_COUNTDOWN);
-    setTimer(TIMER);
+    setTimer(0);
     setQuestionNumber(0);
     setIsUserAnswered(false);
     setScore(0);
@@ -220,10 +220,10 @@ const Game = ({ category, numberOfQuestions, difficulty, onCancel }: Game) => {
             {CategoryLabel[category].label}
           </Title>
 
-          <Box c={timer <= 5 ? "red" : ""} className={classes.timer}>
-            <IconAlarm />
-
-            <Text fw="bold">{timer.toString().padStart(2, "0")}</Text>
+          <Box className={classes["number-of-questions"]}>
+            <Text fz="1.25rem" fw="bold">
+              {questions ? questionNumber + 1 : 0} / {numberOfQuestions}
+            </Text>
           </Box>
         </Group>
 
@@ -269,7 +269,11 @@ const Game = ({ category, numberOfQuestions, difficulty, onCancel }: Game) => {
               size="sm"
               radius="md"
               aria-label="quiz progress"
-              value={Math.round((questionNumber / questions.length) * 100)}
+              value={(timer / TIMER) * 100} // calculate the progress value
+              transitionDuration={timer === 0 ? 0 : 1000}
+              classNames={{
+                section: classes["timer-section"],
+              }}
             />
 
             <Button

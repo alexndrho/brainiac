@@ -1,5 +1,4 @@
-.timer {
-  width: 5rem;
+.number-of-questions {
   padding: var(--mantine-spacing-sm);
   font-size: var(--mantine-font-size-xl);
   background-color: var(--mantine-color-dark-filled);
@@ -31,4 +30,8 @@
 
 .answer-button--incorrect {
   background-color: var(--mantine-color-red-filled) !important;
+}
+
+.timer-section {
+  transition-timing-function: linear !important;
 }
