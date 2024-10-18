@@ -150,7 +150,7 @@ const Game = ({ category, numberOfQuestions, difficulty, onCancel }: Game) => {
     setTimeout(() => {
       setQuestionNumber(questionNumber + 1);
       setIsUserAnswered(false);
-      setTimer(15);
+      setTimer(0);
     }, 1000);
   };
 
