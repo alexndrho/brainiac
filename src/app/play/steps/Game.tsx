@@ -20,7 +20,7 @@ import { IconRepeat } from "@tabler/icons-react";
 import classes from "@/styles/Game.module.css";
 
 const INITIAL_COUNTDOWN = 4;
-const TIMER = 15;
+const TIMER = 15000; // 15 seconds in milliseconds
 
 type Answer = {
   text: string;
@@ -120,8 +120,8 @@ const Game = ({ category, numberOfQuestions, difficulty, onCancel }: Game) => {
 
     if (timer <= TIMER) {
       time = setTimeout(() => {
-        setTimer(timer + 1);
-      }, 1000);
+        setTimer(timer + 100); // increment by 100 milliseconds
+      }, 100);
     } else {
       setQuestionNumber(questionNumber + 1);
       setTimer(0);
@@ -270,7 +270,6 @@ const Game = ({ category, numberOfQuestions, difficulty, onCancel }: Game) => {
               radius="md"
               aria-label="quiz progress"
               value={(timer / TIMER) * 100} // calculate the progress value
-              transitionDuration={timer === 0 ? 0 : 1000}
               classNames={{
                 section: classes["timer-section"],
               }}
